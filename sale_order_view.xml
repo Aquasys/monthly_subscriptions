@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Add the tree view -->
+        <record id="view_subscription_tree" model="ir.ui.view">
+            <field name="name">sale.subscription.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="17"/>
+            <field name="arch" type="xml">
+                <tree string="Subscriptions">
+                    <field name="order_id"/>
+                    <field name="order_partner_id" />
+                    <field name="product_id" />
+                    <field name="subscription_start_date"  />
+                    <field name="subscription_end_date"  />
+                    <field name="price_subtotal" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Adding filters to the tree view -->
+        <record id="view_subscription_filter" model="ir.ui.view">
+            <field name="name">sale.subscription.select</field>
+            <field name="model">sale.order.line</field>
+            <field name="type">search</field>
+            <field name="priority" eval="17"/>
+            <field name="arch" type="xml">
+                <search string="Search Sales Order">
+                    <field name="order_partner_id"/>
+                    <field name="product_id"/>
+                    <field name="subscription_start_date"/>
+                    <field name="subscription_end_date"/>
+                    <newline/>
+                    <group expand="context.get('report',False)" string="Group By..." colspan="9" col="8">
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Adding fields to the sales order line popup -->
+        <record model="ir.actions.act_window" id="action_subscription">
+            <field name="name">Subscriptions</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('product_id.subscription','=', 1)]</field>
+            <field name="search_view_id" ref="view_subscription_filter" />
+            <field name="view_id" ref="view_subscription_tree"/>
+        </record>
+
+        <!-- Adding the link to the tree view -->
+        <menuitem
+            id="menu_action_subscription"
+            name="Subscriptions"
+            action="action_subscription"
+            parent="base.menu_sales"/>
+            
+
+    </data>
+</openerp>

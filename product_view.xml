@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="product_normal_form_view_subscription">
+            <field name="name">product.normal.form.subscription</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+
+                 <field name="purchase_ok" position="after">
+                    <field name="subscription" on_change="onchange_subscription(subscription)"/>
+                </field>
+                <!--
+                <field name="list_price" position="after">
+                    <field name="subscription_duration" attrs="{'required':[('subscription','!=',False)]}"/>
+                    <field name="subscription_duration_unit" attrs="{'required':[('subscription','!=',False)]}"/>
+                </field>
+                -->
+            </field>
+        </record>
+        
+    </data>
+</openerp>

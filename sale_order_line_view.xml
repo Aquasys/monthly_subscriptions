@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Adding fields to the sales order line popup -->
+    	<record model="ir.ui.view" id="view_order_form_subscription">
+            <field name="name">sale.order.form.subscription</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="type">form</field>
+
+            <field name="arch" type="xml">
+
+                 <field name="discount" position="after">
+                    <group colspan="5" col="5" attrs="{'invisible':[('subscription','=','0')]}">
+                        <separator string="Subscription" colspan="5"/>
+                        <field name="subscription" invisible="True" />
+                        <field name="subscription_renewal" attrs="{'invisible':[('subscription','=','0')]}" />
+                        <newline/>
+                        <field name="subscription_start_date" attrs="{'invisible':[('subscription','=','0')]}" on_change="onchange_start_date(subscription_start_date)"/>
+                        <field name="subscription_end_date" attrs="{'invisible':[('subscription','=','0')]}" />
+                    </group>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

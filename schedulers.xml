@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+      <data>
+            
+            <record model="ir.cron" id="cronjob_renewal_subscriptions">
+                  <field name='name'>Renewal of subscriptions</field>
+                  <field name='interval_number'>1</field>
+                  <field name='interval_type'>days</field>
+                  <field name="numbercall">-1</field>
+                  <field name="active">True</field>
+                  <field name="doall" eval="False" />
+                  <field name="model">sale.order</field>
+                  <field name="function">renew_subscriptions</field>
+                  <field name="args">()</field>
+            </record>
+
+            <record model="ir.cron" id="cronjob_mail_invoices">
+                  <field name='name'>Mail invoices for subscriptions</field>
+                  <field name='interval_number'>1</field>
+                  <field name='interval_type'>days</field>
+                  <field name="numbercall">-1</field>
+                  <field name="active">True</field>
+                  <field name="doall" eval="False" />
+                  <field name="model">account.invoice</field>
+                  <field name="function">send_mail</field>
+                  <field name="args">()</field>
+            </record>
+        
+    </data>
+</openerp>

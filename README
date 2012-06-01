@@ -1,0 +1,13 @@
+V0.1
+This module allows you to add subscriptions with auto-renewal (or not) in an openerp instance.
+The workflow is the following :
+- Add a subscription by ticking the checkbox in the product form
+- Create a sale order and add the product in the sale order line : 3 fields will appear : start date, end date and auto-renewal
+  - if the start date is after the 14 (you can change that date in the code), end date will be last day of the next month, otherwise it's the last day of the start date month
+  - by default, auto-renewal is checked, which means that these subscriptions will be renewed automatically every month
+  - only confirm the sales orders, don't create the invoice associated (those are generated automatically), if you do so, they won't be renewed
+- The 14 (date can be changed), a scheduler is ran which converts the sales order containing subscriptions to invoice, and renew if needed
+- The 15 (date can be changed), another scheduler is ran which sends the invoice to the client
+
+Note : auto-email when confirming sales orders and invoices is disabled (should be in a separate module)
+
